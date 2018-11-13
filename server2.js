@@ -15,19 +15,27 @@ function getFullNameFolderInTemplate() {
 }
 // getFullNameFolderInTemplate()
 function getFullFileInFolder() {
-    const allFile = fs.readdirSync(path.resolve(''), (err, data) => {
+    let string = ""
+    const allFile = fs.readdirSync(path.resolve('../'), (err, data) => {
         console.log(data)
     })
     // console.log(allFile)
-    allFile.map(item => {
+    allFile.filter(item => !!item.match(/[.]/)).map(item => {
         console.log(item)
-        fs.createReadStream(path.resolve(item)).on('data', function (data) {
-            console.log(data.toString())
-        })
+        console.log(path.resolve('../' + item))
+        let readfile = fs.readFileSync(path.resolve('../' + item))
+        string = string + readfile.toString()
+        // fs.createReadStream(path.resolve(item)).on('data', function (data) {
+        //     // const writeStream = fs.createWriteStream(path.resolve('test'))
+        //     // writeStream.write(data.toString())
+        //     console.log(data)
+        // })
+        // fs.createReadStream(path.resolve(item)).on('')
         // fs.createReadStream(path.resolve(item)).on(data => {
         //     console.log(data.toString())
         // })
     })
+    fs.writeFileSync(path.resolve('test.txt'), string)
 
 }
 getFullFileInFolder()
