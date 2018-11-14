@@ -11,7 +11,6 @@ function getFullNameFolderInTemplate() {
         )
 
     })
-
 }
 // getFullNameFolderInTemplate()
 function getFullFileInFolder() {
@@ -25,18 +24,33 @@ function getFullFileInFolder() {
         console.log(path.resolve('../' + item))
         let readfile = fs.readFileSync(path.resolve('../' + item))
         string = string + readfile.toString()
-        // fs.createReadStream(path.resolve(item)).on('data', function (data) {
-        //     // const writeStream = fs.createWriteStream(path.resolve('test'))
-        //     // writeStream.write(data.toString())
-        //     console.log(data)
-        // })
-        // fs.createReadStream(path.resolve(item)).on('')
-        // fs.createReadStream(path.resolve(item)).on(data => {
-        //     console.log(data.toString())
-        // })
     })
     fs.writeFileSync(path.resolve('test.txt'), string)
-
 }
-getFullFileInFolder()
+function findFile(nameFolder) {
+    console.log(nameFolder)
+    // console.log(path.resolve(nameFolder))
+    const allFileInfolder = fs.readdirSync(path.resolve(nameFolder)).filter(item => !!item.match(/[.]/))
+    const AllFolder = fs.readdirSync(path.resolve(nameFolder)).filter(item => !!!item.match(/[.]/))
+    if (allFileInfolder.length > 0) {
+        allFileInfolder.map(nameFile => {
+            console.log('name File ===>>>> ', nameFile)
+
+        })
+    }
+    else {
+        console.log('name File ===>>>> not File')
+    }
+    if (AllFolder.length > 0) {
+
+        AllFolder.map(folder => {
+            // console.log('name =>>>', folder)
+            findFile(nameFolder + '/' + folder)
+        })
+    }
+}
+findFile('../templates')
+// how to find file in nodejs 
+// tim tat ca  cac thu muc => vao thu muc do => lap lai qua trinh tim thu muc do cho den  khi khong con thu muc de tim nua
+// getFullFileInFolder()
 
