@@ -27,15 +27,18 @@ function getFullFileInFolder() {
     })
     fs.writeFileSync(path.resolve('test.txt'), string)
 }
+let STRING = ""
 function findFile(nameFolder) {
     console.log(nameFolder)
-    // console.log(path.resolve(nameFolder))
     const allFileInfolder = fs.readdirSync(path.resolve(nameFolder)).filter(item => !!item.match(/[.]/))
-    const AllFolder = fs.readdirSync(path.resolve(nameFolder)).filter(item => !!!item.match(/[.]/))
+    const AllFolder = fs.readdirSync(path.resolve(nameFolder)).filter(item => !!!item.match(/[.]/) && item !== 'LICENSE')
     if (allFileInfolder.length > 0) {
         allFileInfolder.map(nameFile => {
-            console.log('name File ===>>>> ', nameFile)
-
+            const pathFile = path.resolve(`${nameFolder}/${nameFile}`)
+            console.log('name File ===>>>> ', pathFile)
+            const content = fs.readFileSync(pathFile)
+            // console.log('content', content.toString())
+            STRING = STRING + content.toString() + '\r\n\r\n\r\n\r\n\r\n\r\n'
         })
     }
     else {
@@ -49,8 +52,10 @@ function findFile(nameFolder) {
         })
     }
 }
-findFile('../templates')
-// how to find file in nodejs 
+// you fill out name folder sub file
+findFile('../templates');
+fs.writeFileSync(path.resolve('a.txt'), STRING)
+// how to find file in nodejs
 // tim tat ca  cac thu muc => vao thu muc do => lap lai qua trinh tim thu muc do cho den  khi khong con thu muc de tim nua
 // getFullFileInFolder()
 
