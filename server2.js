@@ -58,4 +58,3 @@ fs.writeFileSync(path.resolve('a.txt'), STRING)
 // how to find file in nodejs
 // tim tat ca  cac thu muc => vao thu muc do => lap lai qua trinh tim thu muc do cho den  khi khong con thu muc de tim nua
 // getFullFileInFolder()
-
